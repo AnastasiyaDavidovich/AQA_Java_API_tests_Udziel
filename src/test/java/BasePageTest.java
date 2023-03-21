@@ -6,9 +6,12 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import pageobject.BasePage;
 import org.testng.annotations.*;
+
+
+import static Config.Config.BASE_URI;
 import static io.restassured.RestAssured.baseURI;
 
-import static Config.Config.*;
+//import static Config.Config.*;
 import static io.restassured.RestAssured.given;
 
 public class BasePageTest extends BasePage {
@@ -42,16 +45,5 @@ public class BasePageTest extends BasePage {
         this.accessToken = accessToken;
     }
 
-
-
-//    @AfterTest
-//    public void finish() {
-//
-//    }
-//
-//    @Test (description = "", groups = "")
-//    public void test1 (){
-//
-//    };
 
 }

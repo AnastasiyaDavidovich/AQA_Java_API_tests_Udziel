@@ -7,17 +7,10 @@ import io.restassured.response.Response;
 import static io.restassured.RestAssured.*;
 
 public class BasePage {
+    @BeforeTest
+    public void precondition() {
+        baseURI = BASE_URI;
+    }
 
-
-
-    protected String baseUrl = "http://udzel.hopto.org/api/";
-
-
-
-
-
-//    public Boolean emailIsCorrect(){
-//        return true;
-//    }
 }
 

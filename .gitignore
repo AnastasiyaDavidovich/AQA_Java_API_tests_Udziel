@@ -148,4 +148,4 @@ fabric.properties
 hs_err_pid*
 
 #Credentials
-/src/main/java/Utils/credentials
+/src/main/java/Config/Credentials.java
