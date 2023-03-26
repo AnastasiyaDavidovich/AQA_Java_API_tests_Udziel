@@ -12,6 +12,17 @@ import static io.restassured.RestAssured.given;
 
 public class RegistrationPositivePageTest1 extends RegistrationPositivePage {
 
+    private void registrationOk(String password, String username, String email){
+        UserRegisterResponse userDataRegistration = userRegistration(password, username, email);
+        Assert.assertEquals(userDataRegistration.getStatusCod(), 201);
+        String expEmail = email.toLowerCase();
+        Assert.assertEquals(userDataRegistration.getEmail(), expEmail);
+        String token = getUserToken(email, password);
+        Assert.assertNotNull(token);
+        boolean response = deleteUser(email, password);
+        Assert.assertTrue(response);
+    };
+
     @Test (description = "with valid e-mail: lower case")
     public void userRegistration_1(){
         registrationOk(PASSWORD, USERNAME, EMAIL_LOW);
