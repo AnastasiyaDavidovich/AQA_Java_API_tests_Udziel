@@ -1,3 +1,4 @@
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -17,4 +18,17 @@ public class UserPageTest extends UserPage {
         Assert.assertEquals(response.then().extract().jsonPath().getString("username"), USERNAME );
     }
 
+    @Test
+    public void deleteUser(){
+        String body = "{\n" +
+                "    \"current_password\" : \"" + PASSWORD + "\"\n" +
+                "}";
+        Response response = given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Token " + getAccessToken())
+                .body(body)
+                .when()
+                .delete("users/me/");
+        response.then().log().all().statusCode(204);
+    }
 }
