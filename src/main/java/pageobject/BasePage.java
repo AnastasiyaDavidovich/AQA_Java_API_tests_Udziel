@@ -29,7 +29,7 @@ public class BasePage {
                 .body(userRegistration)
                 .post("users/");
 
-        UserRegisterResponse userResponse = new UserRegisterResponse(response.then().extract().jsonPath().getString("password"),
+        UserRegisterResponse userResponse = new UserRegisterResponse(response.then().extract().jsonPath().getInt("id"),
                 response.then().extract().jsonPath().getString("username"),
                 response.then().extract().jsonPath().getString("email"),
                 response.then().extract().statusCode());

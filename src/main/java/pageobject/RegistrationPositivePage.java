@@ -18,16 +18,6 @@ public class RegistrationPositivePage extends BasePage {
         baseURI = BASE_URI;
     }
 
-    protected void registrationOk(String password, String username, String email){
-    UserRegisterResponse userDataRegistration = userRegistration(password, username, email);
-    Assert.assertEquals(userDataRegistration.getStatusCod(), 201);
-    Assert.assertEquals(email, userDataRegistration.getEmail());
-    String token = getUserToken(email, password);
-    Assert.assertNotNull(token);
-    boolean response = deleteUser(email, password);
-    Assert.assertTrue(response);
-};
-
     protected boolean deleteUser(String email, String password){
         String body = "{\n" +
                 "    \"current_password\" : \"" + password + "\"\n" +

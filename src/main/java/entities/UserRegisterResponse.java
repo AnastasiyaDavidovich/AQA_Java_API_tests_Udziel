@@ -7,12 +7,12 @@ public class UserRegisterResponse {
     private Integer id;
     private String username;
     private String email;
-    private Integer statusCod;
+    private Integer statusCode;
 
-    public UserRegisterResponse(Integer id, String username, String email, Integer statusCod) {
+    public UserRegisterResponse(Integer id, String username, String email, Integer statusCode) {
         this.id = id;
         this.username = username;
         this.email = email;
-        this.statusCod = statusCod;
+        this.statusCode = statusCode;
     }
 }
