@@ -32,7 +32,8 @@ public class BasePage {
         UserRegisterResponse userResponse = new UserRegisterResponse(response.then().extract().jsonPath().getInt("id"),
                 response.then().extract().jsonPath().getString("username"),
                 response.then().extract().jsonPath().getString("email"),
-                response.then().extract().statusCode());
+                response.then().extract().statusCode(),
+                response.then().extract().jsonPath().getString("password"));
         return userResponse;
     }
 }

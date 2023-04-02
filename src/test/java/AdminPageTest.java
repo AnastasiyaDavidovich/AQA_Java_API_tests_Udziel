@@ -14,8 +14,8 @@ import static Config.Credentials.*;
 
 public class AdminPageTest extends AdminPage {
 
-    @Test
-    public void getUsersList(){
+    @Test (description = "get users list")
+    public void getUsersList_15(){
         List<User> users = given()
                 .header("Authorization", "Token " + getAccessToken())
                 .when()

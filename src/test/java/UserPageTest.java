@@ -8,8 +8,8 @@ import static io.restassured.RestAssured.*;
 
 public class UserPageTest extends UserPage {
 
-    @Test
-    public void getInfoMe(){
+    @Test (description = "get user's info")
+    public void getInfoMe_13(){
         Response response = given()
                 .header("Authorization", "Token " + getAccessToken())
                 .when()
@@ -18,8 +18,8 @@ public class UserPageTest extends UserPage {
         Assert.assertEquals(response.then().extract().jsonPath().getString("username"), USERNAME );
     }
 
-    @Test
-    public void deleteUser(){
+    @Test (description = "delete user")
+    public void deleteUser_14(){
         String body = "{\n" +
                 "    \"current_password\" : \"" + PASSWORD + "\"\n" +
                 "}";
