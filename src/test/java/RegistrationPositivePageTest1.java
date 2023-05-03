@@ -9,6 +9,9 @@ import org.testng.annotations.Test;
 import pageobject.RegistrationPositivePage;
 
 import static Config.Credentials.*;
+import static Config.TestData.*;
+import static Config.TestData.EMAIL;
+import static Config.TestData.USERNAME;
 import static io.restassured.RestAssured.given;
 
 public class RegistrationPositivePageTest1 extends RegistrationPositivePage {

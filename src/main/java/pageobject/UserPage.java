@@ -1,5 +1,6 @@
 package pageobject;
 
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeTest;
 
@@ -37,4 +38,36 @@ public class UserPage extends BasePage {
         this.accessToken = accessToken;
     }
 
+
+    public Response changeUsername(String newName, String accessToken){
+        return given()
+                .when()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Token " + accessToken)
+                .body("{\n" +
+                        " \"username\": \"" + newName + "\"\n" +
+                        "}")
+                .patch("users/me/");
+    }
+
+    public Response changeUserPassword(String newPassword, String accessToken){
+        return given()
+                .when()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Token " + accessToken)
+                .body("{\n" +
+                        " \"new_password\": \"" + newPassword + "\"\n" +
+                        "}")
+                .post("users/set_password/");
+    }
+    public Response changeEmail(String newEmail, String accessToken){
+        return given()
+                .when()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Token " + accessToken)
+                .body("{\n" +
+                        " \"username\": \"" + newEmail + "\"\n" +
+                        "}")
+                .patch("users/me/");
+    }
 }

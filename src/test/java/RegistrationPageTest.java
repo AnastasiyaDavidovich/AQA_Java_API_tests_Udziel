@@ -5,6 +5,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import static Config.Credentials.*;
+import static Config.TestData.*;
+import static Config.TestData.USERNAME;
 import static io.restassured.RestAssured.given;
 
 public class RegistrationPageTest extends BasePageTest {
