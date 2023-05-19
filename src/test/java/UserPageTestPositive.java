@@ -17,6 +17,7 @@ import static Config.Config.BASE_URI;
 import static Config.Config.BASE_URI;
 import static Config.Credentials.*;
 import static Config.TestData.*;
+import static Config.TestData.EMAIL;
 import static Config.TestData.USERNAME;
 import static io.restassured.RestAssured.*;
 
@@ -150,6 +151,14 @@ public class UserPageTestPositive extends BasePageTest {
         changeName(userToTest.getEmail(), accessToken);
     }
 
+    @Test (description = "сhange: valid email + valid name")
+    public void userChange_52(){
+        Response response1 = userPage.userChange(EMAIL_UP_LOW, USERNAME_LOW_UP, accessToken);
+        response1.then().log().all().statusCode(204);
+        Assert.assertEquals(EMAIL_UP_LOW, response1.then().extract().jsonPath().getString("email"));
+        Assert.assertEquals(USERNAME_LOW_UP, response1.then().extract().jsonPath().getString("username"));
+    }
+
     @Test (description = "change email to valid: lower case")
     public void changeEmail_58() {
         changeEmail(EMAIL_LOW, accessToken);
@@ -177,6 +186,12 @@ public class UserPageTestPositive extends BasePageTest {
     @Test (description = "change email to valid: with \"-\" in name part")
     public void changeEmail_63() {
         changeEmail(EMAIL_DASH, accessToken);
+    }
+
+    @Test (description = "User login with valid login  valid password")
+    public void userLogin_71() {
+        Response response1 = userPage.userLogin(EMAIL, PASSWORD_LOW);
+        response1.then().statusCode(200);
     }
 
 }

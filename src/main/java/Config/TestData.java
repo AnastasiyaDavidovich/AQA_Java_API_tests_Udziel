@@ -69,4 +69,10 @@ public class TestData {
     public static final String USER_RESPONSE68 = "Введите правильный адрес электронной почты";
     public static final String USER_RESPONSE69 = "Введите правильный адрес электронной почты";
     public static final String USER_RESPONSE70 = "может содержать только";
+    public static final String USER_RESPONSE53 = "Введите правильное имя пользователя";
+    public static final String USER_RESPONSE54 = "Введите правильный адрес электронной почты";
+    public static final String USER_RESPONSE55 = "Введите правильный адрес электронной почты";
+    public static final String USER_RESPONSE56 = "Это поле не может быть пустым";
+    public static final String USER_RESPONSE57 = "Это поле не может быть пустым";
+
 }

@@ -66,8 +66,33 @@ public class UserPage extends BasePage {
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Token " + accessToken)
                 .body("{\n" +
-                        " \"username\": \"" + newEmail + "\"\n" +
+                        " \"email\": \"" + newEmail + "\"\n" +
                         "}")
                 .patch("users/me/");
     }
+
+    public Response userLogin(String email, String password){
+        String body = "{\n" +
+                " \"email\": \"" + email + "\",\n" +
+                " \"password\": \"" + password + "\"\n" +
+                "}";
+        return given()
+                .contentType(ContentType.JSON)
+                .body(body)
+                .post("jwt/create/");
+    }
+
+    public Response userChange(String newEmail, String newName, String accessToken){
+        return given()
+                .when()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Token " + accessToken)
+                .body("{\n" +
+                        " \"email\": \"" + newEmail + "\"\n" +
+                        " \"username\": \"" + newName + "\"\n" +
+                        "}")
+                .put("users/me/");
+    }
+
+
 }

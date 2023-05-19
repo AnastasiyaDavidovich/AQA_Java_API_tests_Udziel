@@ -13,6 +13,7 @@ import pageobject.UserPage;
 import static Config.Config.BASE_URI;
 import static Config.Credentials.*;
 import static Config.TestData.*;
+import static Config.TestData.EMAIL;
 import static Config.TestData.USERNAME;
 import static io.restassured.RestAssured.baseURI;
 
@@ -66,6 +67,27 @@ public class UserPageTestNegative extends BasePageTest{
         Assert.assertTrue(response1.then().extract().jsonPath().getString("email").contains(responseText));
     }
 
+    private void usrerLoginNegative(String email, String password){
+        Response response1 = userPage.userLogin(email, password);
+        response1.then().statusCode(401);
+        Assert.assertEquals(response1.then().extract().response().jsonPath().getString("detail"),
+                "No active account found with the given credentials");
+    }
+
+    private void userChangeNegativeEmail(String newEmail, String newName, String accessToken, String responseText){
+        Response response1 = userPage.userChange(newEmail, newName, accessToken);
+        response1.then().log().all().statusCode(400);
+        Assert.assertTrue(response1.then().extract().jsonPath().getString("email").contains(responseText));
+
+    }
+
+    private void userChangeNegativeName(String newEmail, String newName, String accessToken, String responseText){
+        Response response1 = userPage.userChange(newEmail, newName, accessToken);
+        response1.then().log().all().statusCode(400);
+        Assert.assertTrue(response1.then().extract().jsonPath().getString("username").contains(responseText));
+
+    }
+
     @Test (description = "change password to invalid: 7 symbols")
     public void changePasswordInvalid_39() {
         changePasswordInvalid(PASSWORD_7_SYMBOLS, accessToken, USER_RESPONSE39);
@@ -115,6 +137,31 @@ public class UserPageTestNegative extends BasePageTest{
         changeNaneInvalid(USERNAME_SLASH, accessToken, USER_RESPONSE51);
     }
 
+    @Test (description = "сhange: valid email + invalid name")
+    public void userChangeNegative_53(){
+        userChangeNegativeName(EMAIL_NUM, USERNAME_HASH, accessToken, USER_RESPONSE53);
+    }
+
+    @Test (description = "сhange: invalid email + valid name")
+    public void userChangeNegative_54(){
+        userChangeNegativeEmail(EMAIL_NUM, USERNAME_HASH, accessToken, USER_RESPONSE54);
+    }
+
+    @Test (description = "сhange: invalid email + invalid name")
+    public void userChangeNegative_55(){
+        userChangeNegativeEmail(EMAIL_NUM, USERNAME_HASH, accessToken, USER_RESPONSE55);
+    }
+
+    @Test (description = "сhange: valid email without name")
+    public void userChangeNegative_56(){
+        userChangeNegativeName(EMAIL_NUM, USERNAME_HASH, accessToken, USER_RESPONSE56);
+    }
+
+    @Test (description = "сhange: valid name without email")
+    public void userChangeNegative_57(){
+        userChangeNegativeEmail(EMAIL_NUM, USERNAME_HASH, accessToken, USER_RESPONSE57);
+    }
+
     @Test (description = "change email to invalid: empty field")
     public void changeEmailInvalid_64() {
         changeEmailInvalid(EMAIL_EMPTY, accessToken, USER_RESPONSE64);
@@ -143,5 +190,20 @@ public class UserPageTestNegative extends BasePageTest{
     @Test (description = "change email to invalid: contents polish symbol \"ń\"")
     public void changeEmailInvalid_70() {
         changeEmailInvalid(EMAIL_POLISH_SYM, accessToken, USER_RESPONSE70);
+    }
+
+    @Test (description = "User login with valid login invalid password")
+    public void usrerLoginNegative_72() {
+        usrerLoginNegative(EMAIL, PASSWORD_7_SYMBOLS);
+    }
+
+    @Test (description = "User login with invalid login valid password")
+    public void usrerLoginNegative_73() {
+        usrerLoginNegative(EMAIL_TWO_DOT, PASSWORD_LOW);
+    }
+
+    @Test (description = "User login with invalid login invalid password")
+    public void usrerLoginNegative_74() {
+        usrerLoginNegative(EMAIL_START_DOT, PASSWORD_QWERTY);
     }
 }
